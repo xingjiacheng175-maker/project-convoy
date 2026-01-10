@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var cargo_label = $CargoLabel
 @onready var fuel_bar = $FuelBar
 @onready var fuel_label = $FuelBar/FuelLabel
+@onready var range_label = $RangeLabel
 @onready var trade_window = $TradeWindow
 @onready var trade_label = $TradeWindow/PortLabel
 @onready var repair_button = $TradeWindow/RepairButton
@@ -23,6 +24,7 @@ func _ready():
 		_on_player_money_changed(player.money)
 		_on_player_cargo_changed(player.cargo_amount)
 		_on_player_fuel_changed(player.current_fuel)
+		update_range_display()
 		
 		# Connect signals
 		if not player.hp_changed.is_connected(_on_player_hp_changed):
@@ -65,12 +67,21 @@ func _on_player_money_changed(amount):
 func _on_player_cargo_changed(amount):
 	if cargo_label:
 		cargo_label.text = "Cargo: " + str(amount)
+	update_range_display()
 
 func _on_player_fuel_changed(amount):
 	if fuel_bar:
 		fuel_bar.value = amount
 	if fuel_label:
 		fuel_label.text = "Fuel: " + str(int(amount)) + "%"
+	update_range_display()
+
+func update_range_display():
+	if range_label:
+		var player = get_tree().get_first_node_in_group("player")
+		if player:
+			var range_val = player.get_estimated_range()
+			range_label.text = "Range: " + str(int(range_val)) + " km"
 
 func _on_repair_button_pressed():
 	var player = get_tree().get_first_node_in_group("player")

@@ -61,17 +61,24 @@ func refuel(amount, cost):
 		return true
 	return false
 
+func get_current_max_speed():
+	var speed = max(base_speed - (cargo_amount * weight_penalty), min_speed)
+	if current_fuel <= 0:
+		speed *= 0.1
+	return speed
+
+func get_estimated_range():
+	if fuel_consumption_rate <= 0:
+		return 0.0
+	return (current_fuel / fuel_consumption_rate) * get_current_max_speed()
+
 func _physics_process(delta: float) -> void:
 	# Calculate dynamic max speed based on cargo
-	var current_max_speed = max(base_speed - (cargo_amount * weight_penalty), min_speed)
+	var current_max_speed = get_current_max_speed()
 	
 	# Calculate dynamic friction based on cargo (heavier = more sluggish)
 	# Base friction is 0.1. We reduce it slightly per cargo unit.
 	var current_friction = max(friction - (cargo_amount * 0.005), 0.02)
-	
-	# Fuel penalty
-	if current_fuel <= 0:
-		current_max_speed *= 0.1 # 90% speed penalty if out of fuel
 	
 	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
