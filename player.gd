@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
 signal hp_changed(new_hp)
+signal money_changed(amount)
 
 @export var max_speed = 400
 @export var friction = 0.1
 
 var hp = 100
+var money = 100
 var is_dead = false
 
 func _ready():
@@ -16,11 +18,23 @@ func take_damage(amount):
 		return
 	
 	hp -= amount
+	print("Player took damage: ", amount, " New HP: ", hp)
 	emit_signal("hp_changed", hp)
 	
 	if hp <= 0:
 		is_dead = true
 		get_tree().call_deferred("reload_current_scene")
+
+func change_money(amount):
+	if amount < 0 and money + amount < 0:
+		return false
+	money += amount
+	money_changed.emit(money)
+	return true
+
+func heal_full():
+	hp = 100
+	hp_changed.emit(hp)
 
 func _physics_process(_delta: float) -> void:
 	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")

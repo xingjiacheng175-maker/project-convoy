@@ -4,7 +4,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_oaw30"]
 font_size = 50
-font_color = Color(1, 0, 0, 1)
+font_color = Color(0.74658775, 0.68730676, 3.85046e-07, 1)
 
 [node name="GameUI" type="CanvasLayer"]
 script = ExtResource("1_ue6oa")
@@ -13,6 +13,13 @@ script = ExtResource("1_ue6oa")
 offset_right = 54.0
 offset_bottom = 23.0
 text = "HP:100"
+label_settings = SubResource("LabelSettings_oaw30")
+
+[node name="MoneyLabel" type="Label" parent="."]
+offset_top = 60.0
+offset_right = 54.0
+offset_bottom = 120.0
+text = "$100"
 label_settings = SubResource("LabelSettings_oaw30")
 
 [node name="TradeWindow" type="Panel" parent="."]
@@ -29,16 +36,29 @@ offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="TradeWindow"]
+[node name="PortLabel" type="Label" parent="TradeWindow"]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 0.9850001
-offset_left = -1.0
-offset_right = 1.0
-offset_bottom = -1.5258789e-05
+offset_bottom = 100.0
 grow_horizontal = 2
-grow_vertical = 2
 text = "Welcome to Port"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="RepairButton" type="Button" parent="TradeWindow"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Repair ($50)"
+
+[connection signal="pressed" from="TradeWindow/RepairButton" to="." method="_on_repair_button_pressed"]
