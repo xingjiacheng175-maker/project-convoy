@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://qse6ucbr2uye"]
+
+[ext_resource type="Texture2D" uid="uid://dpjunvpt2ff3l" path="res://icon.svg" id="1_0iamf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hdtfb"]
+radius = 219.0
+height = 438.0
+
+[node name="Island" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0.13333334, 1)
+scale = Vector2(3, 3)
+texture = ExtResource("1_0iamf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_hdtfb")

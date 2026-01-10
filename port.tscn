@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfvl46tpokweu"]
+
+[ext_resource type="Script" uid="uid://bkrgboevd1isv" path="res://port.gd" id="1_hl5ak"]
+[ext_resource type="Texture2D" uid="uid://dpjunvpt2ff3l" path="res://icon.svg" id="2_waw7x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1by84"]
+radius = 99.0202
+
+[node name="Port" type="Area2D"]
+script = ExtResource("1_hl5ak")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0, 1)
+texture = ExtResource("2_waw7x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1by84")
