@@ -46,3 +46,7 @@ shape = SubResource("CircleShape2D_2hs0m")
 [node name="Timer" type="Timer" parent="Turret"]
 wait_time = 0.5
 autostart = true
+
+[connection signal="body_entered" from="Turret/Range" to="Turret" method="_on_range_body_entered"]
+[connection signal="body_exited" from="Turret/Range" to="." method="_on_range_body_exited"]
+[connection signal="timeout" from="Turret/Timer" to="Turret" method="_on_timer_timeout"]

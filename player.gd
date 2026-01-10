@@ -30,3 +30,11 @@ func _physics_process(_delta: float) -> void:
 	# Only rotate if we have significant velocity to avoid jitter
 	if velocity.length() > 0.1:
 		rotation = velocity.angle()
+
+
+func _on_range_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
+
+
+func _on_range_body_exited(body: Node2D) -> void:
+	pass # Replace with function body.
