@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://ymvewpyc0hb6"]
+
+[ext_resource type="PackedScene" uid="uid://bn46v5uwicdpc" path="res://player.tscn" id="1_fj7yv"]
+[ext_resource type="Texture2D" uid="uid://dpjunvpt2ff3l" path="res://icon.svg" id="2_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://bh8t6dgeepdkq" path="res://enemy.tscn" id="3_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://c7nioju2h4vm6" path="res://game_ui.tscn" id="4_aqk2v"]
+
+[node name="World" type="Node2D"]
+position = Vector2(-42, 532)
+
+[node name="Player" parent="." instance=ExtResource("1_fj7yv")]
+position = Vector2(617, -208)
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(781, -94)
+texture = ExtResource("2_tlwt5")
+
+[node name="Icon2" type="Sprite2D" parent="."]
+position = Vector2(749, -232)
+texture = ExtResource("2_tlwt5")
+
+[node name="Icon3" type="Sprite2D" parent="."]
+position = Vector2(472, -186)
+texture = ExtResource("2_tlwt5")
+
+[node name="Enemy" parent="." instance=ExtResource("3_tlwt5")]
+position = Vector2(197, -300)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_tlwt5")]
+position = Vector2(200, -98)
+
+[node name="Enemy3" parent="." instance=ExtResource("3_tlwt5")]
+position = Vector2(1144, -490)
+
+[node name="Enemy4" parent="." instance=ExtResource("3_tlwt5")]
+position = Vector2(594, -630)
+
+[node name="Enemy5" parent="." instance=ExtResource("3_tlwt5")]
+position = Vector2(936, 141)
+
+[node name="Enemy6" parent="." instance=ExtResource("3_tlwt5")]
+position = Vector2(402, 174)
+
+[node name="GameUI" parent="." instance=ExtResource("4_aqk2v")]

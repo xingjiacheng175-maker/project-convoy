@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7nioju2h4vm6"]
+
+[ext_resource type="Script" uid="uid://c3iox6aub3n17" path="res://game_ui.gd" id="1_ue6oa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oaw30"]
+font_size = 50
+font_color = Color(1, 0, 0, 1)
+
+[node name="GameUI" type="CanvasLayer"]
+script = ExtResource("1_ue6oa")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 54.0
+offset_bottom = 23.0
+text = "HP:100"
+label_settings = SubResource("LabelSettings_oaw30")

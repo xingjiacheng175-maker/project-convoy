@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://bn46v5uwicdpc"]
+
+[ext_resource type="Script" uid="uid://beuvggc5cyse0" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://dpjunvpt2ff3l" path="res://icon.svg" id="2_i3pqv"]
+[ext_resource type="Script" uid="uid://dfmfajhfl447l" path="res://turret.gd" id="3_hqtel"]
+[ext_resource type="PackedScene" uid="uid://juhslypjxjeh" path="res://projectile.tscn" id="4_sweqy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hqtel"]
+radius = 45.0
+height = 90.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2hs0m"]
+radius = 275.00183
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_onrkg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.5, 8.9406973e-07)
+scale = Vector2(0.7734375, 0.796875)
+texture = ExtResource("2_i3pqv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CapsuleShape2D_hqtel")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+
+[node name="Turret" type="Node2D" parent="."]
+position = Vector2(50, 1)
+script = ExtResource("3_hqtel")
+projectile_scene = ExtResource("4_sweqy")
+
+[node name="Icon" type="Sprite2D" parent="Turret"]
+position = Vector2(1.9073486e-06, 7.6293945e-06)
+scale = Vector2(0.5078125, 0.14062499)
+texture = ExtResource("2_i3pqv")
+
+[node name="Range" type="Area2D" parent="Turret"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Turret/Range"]
+shape = SubResource("CircleShape2D_2hs0m")
+
+[node name="Timer" type="Timer" parent="Turret"]
+wait_time = 0.5
+autostart = true

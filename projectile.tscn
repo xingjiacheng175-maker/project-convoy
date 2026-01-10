@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://juhslypjxjeh"]
+
+[ext_resource type="Script" uid="uid://dodcxhoundaml" path="res://projectile.gd" id="1_qxf0c"]
+[ext_resource type="Texture2D" uid="uid://dpjunvpt2ff3l" path="res://icon.svg" id="2_dgwo2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sxmqc"]
+radius = 6.0
+height = 14.0
+
+[node name="Projectile" type="Area2D"]
+script = ExtResource("1_qxf0c")
+
+[node name="Icon" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_dgwo2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_sxmqc")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
