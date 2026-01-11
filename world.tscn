@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ymvewpyc0hb6"]
+[gd_scene load_steps=8 format=3 uid="uid://ymvewpyc0hb6"]
 
 [ext_resource type="PackedScene" uid="uid://bn46v5uwicdpc" path="res://player.tscn" id="1_fj7yv"]
 [ext_resource type="Script" uid="uid://bjolacke111mi" path="res://world.gd" id="1_world"]
@@ -6,10 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://qse6ucbr2uye" path="res://island.tscn" id="4_036b0"]
 [ext_resource type="PackedScene" uid="uid://c7nioju2h4vm6" path="res://game_ui.tscn" id="4_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://cfvl46tpokweu" path="res://port.tscn" id="5_036b0"]
+[ext_resource type="Script" uid="uid://c1wvo7pl3uvkx" path="res://world_border.gd" id="7_worldborder"]
 
 [node name="World" type="Node2D"]
 position = Vector2(-42, 532)
 script = ExtResource("1_world")
+
+[node name="WorldBorder" type="Node2D" parent="."]
+z_index = 100
+script = ExtResource("7_worldborder")
 
 [node name="Player" parent="." instance=ExtResource("1_fj7yv")]
 position = Vector2(617, -208)
@@ -35,25 +40,35 @@ position = Vector2(677, 205)
 [node name="GameUI" parent="." instance=ExtResource("4_aqk2v")]
 
 [node name="Island" parent="." instance=ExtResource("4_036b0")]
-position = Vector2(883, -386)
+position = Vector2(2055, 257)
 
 [node name="Island2" parent="." instance=ExtResource("4_036b0")]
-position = Vector2(291, 15)
+position = Vector2(-58, 695)
 
 [node name="Port" parent="." instance=ExtResource("5_036b0")]
-position = Vector2(1638, -435)
+position = Vector2(4678, -4599)
 export_item_name = "Machinery"
 sell_price = 5
 
 [node name="Port2" parent="." instance=ExtResource("5_036b0")]
-position = Vector2(1611, 677)
+position = Vector2(-4444, -4381)
 export_item_name = "Spice"
 port_name = "Port Spice"
 buy_price = 100
 
 [node name="Port3" parent="." instance=ExtResource("5_036b0")]
-position = Vector2(517, 543)
+position = Vector2(779, -184)
 port_name = "Port Home"
+buy_price = 100
+
+[node name="Port4" parent="." instance=ExtResource("5_036b0")]
+position = Vector2(-4652, 4637)
+port_name = "Port Military"
+buy_price = 100
+
+[node name="Port5" parent="." instance=ExtResource("5_036b0")]
+position = Vector2(4709, 4668)
+port_name = "Port Smuggler"
 buy_price = 100
 
 [connection signal="player_entered_port" from="Port" to="GameUI" method="on_port_entered"]
@@ -62,3 +77,7 @@ buy_price = 100
 [connection signal="player_exited_port" from="Port2" to="GameUI" method="on_port_exited"]
 [connection signal="player_entered_port" from="Port3" to="GameUI" method="on_port_entered"]
 [connection signal="player_exited_port" from="Port3" to="GameUI" method="on_port_exited"]
+[connection signal="player_entered_port" from="Port4" to="GameUI" method="on_port_entered"]
+[connection signal="player_exited_port" from="Port4" to="GameUI" method="on_port_exited"]
+[connection signal="player_entered_port" from="Port5" to="GameUI" method="on_port_entered"]
+[connection signal="player_exited_port" from="Port5" to="GameUI" method="on_port_exited"]

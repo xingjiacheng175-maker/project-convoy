@@ -7,10 +7,10 @@ func _ready():
 
 func generate_fog():
 	# Generate clouds in a grid
-	var start_x = -3000
-	var end_x = 3000
-	var start_y = -3000
-	var end_y = 3000
+	var start_x = -5000
+	var end_x = 5000
+	var start_y = -5000
+	var end_y = 5000
 	var step = 300 # Distance between clouds
 	
 	for x in range(start_x, end_x, step):

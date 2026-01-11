@@ -30,6 +30,14 @@ var fuel_consumption_rate = 2.0 # Fuel/sec
 
 func _ready():
 	add_to_group("player")
+	
+	# Task 3: Camera Unlock/Expansion
+	var camera = $Camera2D
+	if camera:
+		camera.limit_left = -5000
+		camera.limit_top = -5000
+		camera.limit_right = 5000
+		camera.limit_bottom = 5000
 
 func take_damage(amount):
 	if is_dead:
