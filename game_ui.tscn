@@ -54,6 +54,18 @@ offset_right = 320.0
 offset_bottom = 270.0
 text = "Range: 0km"
 
+[node name="ScannerPanel" type="VBoxContainer" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 2
+
 [node name="TradeWindow" type="Panel" parent="."]
 visible = false
 anchors_preset = 8
@@ -72,11 +84,37 @@ grow_vertical = 2
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 100.0
+offset_bottom = 60.0
 grow_horizontal = 2
 text = "Welcome to Port"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MissionLabel" type="Label" parent="TradeWindow"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 60.0
+offset_bottom = 100.0
+grow_horizontal = 2
+text = "Mission: None"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MissionButton" type="Button" parent="TradeWindow"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -20.0
+offset_right = 100.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Accept Mission"
 
 [node name="RepairButton" type="Button" parent="TradeWindow"]
 layout_mode = 1

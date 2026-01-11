@@ -14,6 +14,8 @@ var hp = 100
 var money = 100
 var cargo_amount = 0
 var is_dead = false
+var current_mission = {}
+var has_mission = false
 
 # Fuel System
 var max_fuel = 100.0
@@ -62,7 +64,12 @@ func refuel(amount, cost):
 	return false
 
 func get_current_max_speed():
-	var speed = max(base_speed - (cargo_amount * weight_penalty), min_speed)
+	# If has mission, add extra weight (simulate 3 cargo units)
+	var effective_cargo = cargo_amount
+	if has_mission:
+		effective_cargo += 3
+		
+	var speed = max(base_speed - (effective_cargo * weight_penalty), min_speed)
 	if current_fuel <= 0:
 		speed *= 0.1
 	return speed
@@ -78,7 +85,10 @@ func _physics_process(delta: float) -> void:
 	
 	# Calculate dynamic friction based on cargo (heavier = more sluggish)
 	# Base friction is 0.1. We reduce it slightly per cargo unit.
-	var current_friction = max(friction - (cargo_amount * 0.005), 0.02)
+	var effective_cargo = cargo_amount
+	if has_mission:
+		effective_cargo += 3
+	var current_friction = max(friction - (effective_cargo * 0.005), 0.02)
 	
 	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	

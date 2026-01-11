@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_1by84"]
 radius = 99.0202
 
-[node name="Port" type="Area2D"]
+[node name="Port" type="Area2D" groups=["ports"]]
 script = ExtResource("1_hl5ak")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
