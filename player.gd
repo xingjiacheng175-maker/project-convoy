@@ -3,6 +3,7 @@ extends CharacterBody2D
 signal hp_changed(new_hp)
 signal money_changed(amount)
 signal cargo_changed(new_amount)
+signal inventory_updated(inventory_data)
 signal fuel_changed(new_fuel)
 
 @export var base_speed = 400.0
@@ -12,7 +13,7 @@ signal fuel_changed(new_fuel)
 
 var hp = 100
 var money = 100
-var cargo_amount = 0
+var inventory = {}
 var is_dead = false
 var current_mission = {}
 var has_mission = false
@@ -49,13 +50,36 @@ func change_money(amount):
 	money_changed.emit(money)
 	return true
 
-func change_cargo(amount):
-	if amount > 0 and cargo_amount + amount > max_cargo:
+func get_total_cargo_count() -> int:
+	var total = 0
+	for count in inventory.values():
+		total += count
+	return total
+
+func add_item(item_name: String, amount: int) -> bool:
+	if get_total_cargo_count() + amount > max_cargo:
 		return false
-	if amount < 0 and cargo_amount + amount < 0:
+	
+	if not inventory.has(item_name):
+		inventory[item_name] = 0
+	inventory[item_name] += amount
+	
+	cargo_changed.emit(get_total_cargo_count())
+	inventory_updated.emit(inventory)
+	print("UI Update Signal Sent via add_item") # Debug
+	return true
+
+func remove_item(item_name: String, amount: int) -> bool:
+	if not inventory.has(item_name) or inventory[item_name] < amount:
 		return false
-	cargo_amount += amount
-	cargo_changed.emit(cargo_amount)
+	
+	inventory[item_name] -= amount
+	if inventory[item_name] <= 0:
+		inventory.erase(item_name)
+	
+	cargo_changed.emit(get_total_cargo_count())
+	inventory_updated.emit(inventory)
+	print("UI Update Signal Sent via remove_item") # Debug
 	return true
 
 func upgrade_engine():
@@ -101,7 +125,7 @@ func refuel(amount, cost):
 
 func get_current_max_speed():
 	# If has mission, add extra weight (simulate 3 cargo units)
-	var effective_cargo = cargo_amount
+	var effective_cargo = get_total_cargo_count()
 	if has_mission:
 		effective_cargo += 3
 		
@@ -121,7 +145,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Calculate dynamic friction based on cargo (heavier = more sluggish)
 	# Base friction is 0.1. We reduce it slightly per cargo unit.
-	var effective_cargo = cargo_amount
+	var effective_cargo = get_total_cargo_count()
 	if has_mission:
 		effective_cargo += 3
 	var current_friction = max(friction - (effective_cargo * 0.005), 0.02)

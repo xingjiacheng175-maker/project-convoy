@@ -21,6 +21,7 @@ extends CanvasLayer
 @onready var buy_button = $TradeWindow/BuyButton
 @onready var sell_button = $TradeWindow/SellButton
 @onready var refuel_button = $TradeWindow/RefuelButton
+@onready var item_list_container = $InventoryContainer
 
 var current_port: Node2D = null
 var scanner_labels = {}
@@ -32,7 +33,7 @@ func _ready():
 		# Update initial value
 		_on_player_hp_changed(player.hp)
 		_on_player_money_changed(player.money)
-		_on_player_cargo_changed(player.cargo_amount)
+		_on_player_cargo_changed(player.get_total_cargo_count())
 		_on_player_fuel_changed(player.current_fuel)
 		update_range_display()
 		
@@ -46,6 +47,10 @@ func _ready():
 			player.cargo_changed.connect(_on_player_cargo_changed)
 		if not player.fuel_changed.is_connected(_on_player_fuel_changed):
 			player.fuel_changed.connect(_on_player_fuel_changed)
+		if not player.inventory_updated.is_connected(_on_inventory_updated):
+			player.inventory_updated.connect(_on_inventory_updated)
+			# Update initial value
+			_on_inventory_updated(player.inventory)
 	else:
 		print("GameUI: Player not found in group 'player'")
 	
@@ -128,6 +133,33 @@ func _on_player_fuel_changed(amount):
 		fuel_label.text = "Fuel: " + str(int(amount)) + "%"
 	update_range_display()
 
+func _on_inventory_updated(inventory: Dictionary):
+	if not item_list_container:
+		return
+		
+	# A. Clear previous labels
+	for child in item_list_container.get_children():
+		child.queue_free()
+		
+	# B. Rebuild list
+	for item_name in inventory:
+		var count = inventory[item_name]
+		
+		# Only show if count > 0
+		if count > 0:
+			var label = Label.new()
+			label.text = "%s: %d" % [item_name, count]
+			
+			# C. Add some color
+			match item_name:
+				"Spice": label.modulate = Color("ff8800") # Orange
+				"Machinery": label.modulate = Color("00aaff") # Blue
+				"Contraband": label.modulate = Color("ff00ff") # Purple
+				_: label.modulate = Color.WHITE
+			
+			# D. Add to container
+			item_list_container.add_child(label)
+
 func _on_mission_button_pressed():
 	if current_port == null:
 		return
@@ -203,7 +235,7 @@ func _on_upgrade_cargo_pressed():
 	if player and player.upgrade_cargo():
 		update_shipyard_ui()
 		# Update cargo UI since max changed (optional, if we show max)
-		_on_player_cargo_changed(player.cargo_amount)
+		_on_player_cargo_changed(player.get_total_cargo_count())
 
 func _on_upgrade_fuel_pressed():
 	var player = get_tree().get_first_node_in_group("player")
@@ -232,10 +264,26 @@ func _on_buy_button_pressed():
 		
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
-		if player.money >= current_port.buy_price:
-			if player.change_cargo(1):
-				player.change_money(-current_port.buy_price)
-				print("Bought cargo for ", current_port.buy_price)
+		# Determine what the port sells
+		var market_data = current_port.get_market_data()
+		var item_to_buy = ""
+		var price = 0
+		
+		# Find the item the port is selling
+		for item in market_data.keys():
+			if market_data[item].is_selling:
+				item_to_buy = item
+				price = market_data[item].price
+				break
+		
+		if item_to_buy == "":
+			print("This port has nothing to sell!")
+			return
+			
+		if player.money >= price:
+			if player.add_item(item_to_buy, 1):
+				player.change_money(-price)
+				print("Bought ", item_to_buy, " for ", price)
 			else:
 				print("Cargo full!")
 		else:
@@ -247,12 +295,19 @@ func _on_sell_button_pressed():
 		
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
-		if player.cargo_amount > 0:
-			player.change_cargo(-1)
-			player.change_money(current_port.sell_price)
-			print("Sold cargo for ", current_port.sell_price)
-		else:
-			print("No cargo to sell!")
+		# Determine what the port buys
+		var market_data = current_port.get_market_data()
+		
+		# Find items in inventory that the port buys
+		for item in player.inventory.keys():
+			if market_data.has(item) and not market_data[item].is_selling:
+				var price = market_data[item].price
+				if player.remove_item(item, 1):
+					player.change_money(price)
+					print("Sold ", item, " for ", price)
+					return # Sell one item at a time for now
+		
+		print("No cargo to sell to this port!")
 
 func _on_refuel_button_pressed():
 	var player = get_tree().get_first_node_in_group("player")

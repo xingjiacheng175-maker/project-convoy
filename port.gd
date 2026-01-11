@@ -4,6 +4,14 @@ signal player_entered_port(port_node)
 signal player_exited_port
 signal discovered(port_node)
 
+const ITEM_DB = {
+	"Spice": 10,
+	"Machinery": 50,
+	"Alloy": 30,
+	"Contraband": 200
+}
+
+@export var export_item_name: String = ""
 @export var port_name: String = "Port Royal"
 @export var buy_price: int = 10
 @export var sell_price: int = 50
@@ -40,6 +48,16 @@ func _ready():
 	add_child(light)
 	
 	generate_mission()
+
+func get_market_data() -> Dictionary:
+	var market = {}
+	for item in ITEM_DB.keys():
+		var base_price = ITEM_DB[item]
+		if item == export_item_name:
+			market[item] = {"price": base_price, "is_selling": true}
+		else:
+			market[item] = {"price": base_price * 2, "is_selling": false}
+	return market
 
 func generate_mission():
 	var ports = get_tree().get_nodes_in_group("ports")

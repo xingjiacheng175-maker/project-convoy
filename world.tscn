@@ -42,14 +42,23 @@ position = Vector2(291, 15)
 
 [node name="Port" parent="." instance=ExtResource("5_036b0")]
 position = Vector2(1638, -435)
+export_item_name = "Machinery"
 sell_price = 5
 
 [node name="Port2" parent="." instance=ExtResource("5_036b0")]
 position = Vector2(1611, 677)
+export_item_name = "Spice"
 port_name = "Port Spice"
+buy_price = 100
+
+[node name="Port3" parent="." instance=ExtResource("5_036b0")]
+position = Vector2(517, 543)
+port_name = "Port Home"
 buy_price = 100
 
 [connection signal="player_entered_port" from="Port" to="GameUI" method="on_port_entered"]
 [connection signal="player_exited_port" from="Port" to="GameUI" method="on_port_exited"]
 [connection signal="player_entered_port" from="Port2" to="GameUI" method="on_port_entered"]
 [connection signal="player_exited_port" from="Port2" to="GameUI" method="on_port_exited"]
+[connection signal="player_entered_port" from="Port3" to="GameUI" method="on_port_entered"]
+[connection signal="player_exited_port" from="Port3" to="GameUI" method="on_port_exited"]
