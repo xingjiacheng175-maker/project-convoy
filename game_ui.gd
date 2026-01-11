@@ -11,6 +11,12 @@ extends CanvasLayer
 @onready var trade_label = $TradeWindow/PortLabel
 @onready var mission_label = $TradeWindow/MissionLabel
 @onready var mission_button = $TradeWindow/MissionButton
+@onready var shipyard_button = $TradeWindow/ShipyardButton
+@onready var shipyard_panel = $TradeWindow/ShipyardPanel
+@onready var upgrade_engine_btn = $TradeWindow/ShipyardPanel/UpgradeEngine
+@onready var upgrade_cargo_btn = $TradeWindow/ShipyardPanel/UpgradeCargo
+@onready var upgrade_fuel_btn = $TradeWindow/ShipyardPanel/UpgradeFuel
+@onready var close_shipyard_btn = $TradeWindow/ShipyardPanel/CloseShipyard
 @onready var repair_button = $TradeWindow/RepairButton
 @onready var buy_button = $TradeWindow/BuyButton
 @onready var sell_button = $TradeWindow/SellButton
@@ -55,6 +61,18 @@ func _ready():
 		if not mission_button.pressed.is_connected(_on_mission_button_pressed):
 			mission_button.pressed.connect(_on_mission_button_pressed)
 			
+	# Connect Shipyard Signals
+	if shipyard_button and not shipyard_button.pressed.is_connected(_on_shipyard_button_pressed):
+		shipyard_button.pressed.connect(_on_shipyard_button_pressed)
+	if close_shipyard_btn and not close_shipyard_btn.pressed.is_connected(_on_close_shipyard_pressed):
+		close_shipyard_btn.pressed.connect(_on_close_shipyard_pressed)
+	if upgrade_engine_btn and not upgrade_engine_btn.pressed.is_connected(_on_upgrade_engine_pressed):
+		upgrade_engine_btn.pressed.connect(_on_upgrade_engine_pressed)
+	if upgrade_cargo_btn and not upgrade_cargo_btn.pressed.is_connected(_on_upgrade_cargo_pressed):
+		upgrade_cargo_btn.pressed.connect(_on_upgrade_cargo_pressed)
+	if upgrade_fuel_btn and not upgrade_fuel_btn.pressed.is_connected(_on_upgrade_fuel_pressed):
+		upgrade_fuel_btn.pressed.connect(_on_upgrade_fuel_pressed)
+			
 	if repair_button:
 		if not repair_button.pressed.is_connected(_on_repair_button_pressed):
 			repair_button.pressed.connect(_on_repair_button_pressed)
@@ -96,7 +114,11 @@ func _on_player_money_changed(amount):
 
 func _on_player_cargo_changed(amount):
 	if cargo_label:
-		cargo_label.text = "Cargo: " + str(amount)
+		var player = get_tree().get_first_node_in_group("player")
+		if player:
+			cargo_label.text = "Cargo: " + str(amount) + "/" + str(player.max_cargo)
+		else:
+			cargo_label.text = "Cargo: " + str(amount)
 	update_range_display()
 
 func _on_player_fuel_changed(amount):
@@ -117,6 +139,76 @@ func _on_mission_button_pressed():
 		mission_button.text = "Accepted"
 		mission_label.text = "Mission: Deliver to " + player.current_mission.target_name
 		print("Mission Accepted: ", player.current_mission)
+
+func _on_shipyard_button_pressed():
+	if shipyard_panel:
+		shipyard_panel.visible = true
+		# Hide trade elements
+		if buy_button: buy_button.visible = false
+		if sell_button: sell_button.visible = false
+		if mission_label: mission_label.visible = false
+		if mission_button: mission_button.visible = false
+		if repair_button: repair_button.visible = false
+		if refuel_button: refuel_button.visible = false
+		update_shipyard_ui()
+
+func _on_close_shipyard_pressed():
+	if shipyard_panel:
+		shipyard_panel.visible = false
+		# Show trade elements
+		if buy_button: buy_button.visible = true
+		if sell_button: sell_button.visible = true
+		if mission_label: mission_label.visible = true
+		if mission_button: mission_button.visible = true
+		if repair_button: repair_button.visible = true
+		if refuel_button: refuel_button.visible = true
+
+func update_shipyard_ui():
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		# Update Engine Button
+		var engine_cost = 200
+		if player.money >= engine_cost:
+			upgrade_engine_btn.disabled = false
+			upgrade_engine_btn.text = "Upgrade Engine ($" + str(engine_cost) + ") - Lvl " + str(player.engine_level) + " -> " + str(player.engine_level + 1)
+		else:
+			upgrade_engine_btn.disabled = true
+			upgrade_engine_btn.text = "Upgrade Engine ($" + str(engine_cost) + ") - Not Enough Cash"
+			
+		# Update Cargo Button
+		var cargo_cost = 300
+		if player.money >= cargo_cost:
+			upgrade_cargo_btn.disabled = false
+			upgrade_cargo_btn.text = "Expand Cargo ($" + str(cargo_cost) + ") - Lvl " + str(player.cargo_level) + " -> " + str(player.cargo_level + 1)
+		else:
+			upgrade_cargo_btn.disabled = true
+			upgrade_cargo_btn.text = "Expand Cargo ($" + str(cargo_cost) + ") - Not Enough Cash"
+			
+		# Update Fuel Button
+		var fuel_cost = 150
+		if player.money >= fuel_cost:
+			upgrade_fuel_btn.disabled = false
+			upgrade_fuel_btn.text = "Bigger Tank ($" + str(fuel_cost) + ") - Lvl " + str(player.fuel_level) + " -> " + str(player.fuel_level + 1)
+		else:
+			upgrade_fuel_btn.disabled = true
+			upgrade_fuel_btn.text = "Bigger Tank ($" + str(fuel_cost) + ") - Not Enough Cash"
+
+func _on_upgrade_engine_pressed():
+	var player = get_tree().get_first_node_in_group("player")
+	if player and player.upgrade_engine():
+		update_shipyard_ui()
+
+func _on_upgrade_cargo_pressed():
+	var player = get_tree().get_first_node_in_group("player")
+	if player and player.upgrade_cargo():
+		update_shipyard_ui()
+		# Update cargo UI since max changed (optional, if we show max)
+		_on_player_cargo_changed(player.cargo_amount)
+
+func _on_upgrade_fuel_pressed():
+	var player = get_tree().get_first_node_in_group("player")
+	if player and player.upgrade_fuel():
+		update_shipyard_ui()
 
 func _on_repair_button_pressed():
 	var player = get_tree().get_first_node_in_group("player")
@@ -141,9 +233,11 @@ func _on_buy_button_pressed():
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
 		if player.money >= current_port.buy_price:
-			player.change_money(-current_port.buy_price)
-			player.change_cargo(1)
-			print("Bought cargo for ", current_port.buy_price)
+			if player.change_cargo(1):
+				player.change_money(-current_port.buy_price)
+				print("Bought cargo for ", current_port.buy_price)
+			else:
+				print("Cargo full!")
 		else:
 			print("Not enough cash to buy cargo!")
 

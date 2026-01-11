@@ -17,6 +17,11 @@ var is_dead = false
 var current_mission = {}
 var has_mission = false
 
+var max_cargo = 5
+var engine_level = 1
+var cargo_level = 1
+var fuel_level = 1
+
 # Fuel System
 var max_fuel = 100.0
 var current_fuel = 100.0
@@ -45,11 +50,42 @@ func change_money(amount):
 	return true
 
 func change_cargo(amount):
+	if amount > 0 and cargo_amount + amount > max_cargo:
+		return false
 	if amount < 0 and cargo_amount + amount < 0:
 		return false
 	cargo_amount += amount
 	cargo_changed.emit(cargo_amount)
 	return true
+
+func upgrade_engine():
+	if money >= 200:
+		change_money(-200)
+		base_speed += 50
+		engine_level += 1
+		print("Engine Upgraded to Level ", engine_level)
+		return true
+	return false
+
+func upgrade_cargo():
+	if money >= 300:
+		change_money(-300)
+		max_cargo += 3
+		cargo_level += 1
+		print("Cargo Expanded to Level ", cargo_level, " (Max: ", max_cargo, ")")
+		return true
+	return false
+
+func upgrade_fuel():
+	if money >= 150:
+		change_money(-150)
+		max_fuel += 50
+		current_fuel = max_fuel # Refill on upgrade
+		fuel_level += 1
+		fuel_changed.emit(current_fuel)
+		print("Fuel Tank Upgraded to Level ", fuel_level, " (Max: ", max_fuel, ")")
+		return true
+	return false
 
 func heal_full():
 	hp = 100
