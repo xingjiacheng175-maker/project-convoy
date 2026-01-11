@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cloudscene123"]
+
+[ext_resource type="Script" path="res://cloud.gd" id="1_cloud"]
+[ext_resource type="Texture2D" uid="uid://dpjunvpt2ff3l" path="res://icon.svg" id="2_icon"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cloud"]
+size = Vector2(128, 128)
+
+[node name="Cloud" type="Area2D"]
+script = ExtResource("1_cloud")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.8)
+scale = Vector2(4, 4)
+texture = ExtResource("2_icon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_cloud")

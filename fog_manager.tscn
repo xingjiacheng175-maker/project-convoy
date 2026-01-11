@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5u271cgckptp"]
+
+[ext_resource type="Script" uid="uid://b7iwqqg63gvr" path="res://fog_manager.gd" id="1_631yw"]
+
+[node name="FogManager" type="Node2D"]
+script = ExtResource("1_631yw")

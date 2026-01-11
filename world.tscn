@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ymvewpyc0hb6"]
+[gd_scene load_steps=7 format=3 uid="uid://ymvewpyc0hb6"]
 
 [ext_resource type="PackedScene" uid="uid://bn46v5uwicdpc" path="res://player.tscn" id="1_fj7yv"]
+[ext_resource type="Script" uid="uid://bjolacke111mi" path="res://world.gd" id="1_world"]
 [ext_resource type="PackedScene" uid="uid://bh8t6dgeepdkq" path="res://enemy.tscn" id="3_tlwt5"]
 [ext_resource type="PackedScene" uid="uid://qse6ucbr2uye" path="res://island.tscn" id="4_036b0"]
 [ext_resource type="PackedScene" uid="uid://c7nioju2h4vm6" path="res://game_ui.tscn" id="4_aqk2v"]
@@ -8,6 +9,7 @@
 
 [node name="World" type="Node2D"]
 position = Vector2(-42, 532)
+script = ExtResource("1_world")
 
 [node name="Player" parent="." instance=ExtResource("1_fj7yv")]
 position = Vector2(617, -208)
@@ -39,7 +41,7 @@ position = Vector2(883, -386)
 position = Vector2(291, 15)
 
 [node name="Port" parent="." instance=ExtResource("5_036b0")]
-position = Vector2(1135, 54)
+position = Vector2(1638, -435)
 sell_price = 5
 
 [node name="Port2" parent="." instance=ExtResource("5_036b0")]
