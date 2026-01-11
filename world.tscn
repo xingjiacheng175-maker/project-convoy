@@ -12,7 +12,7 @@
 position = Vector2(-42, 532)
 script = ExtResource("1_world")
 
-[node name="WorldBorder" type="Node2D" parent="."]
+[node name="WorldBorder" type="StaticBody2D" parent="."]
 z_index = 100
 script = ExtResource("7_worldborder")
 
@@ -21,21 +21,27 @@ position = Vector2(617, -208)
 
 [node name="Enemy" parent="." instance=ExtResource("3_tlwt5")]
 position = Vector2(197, -300)
+aggro_range = 300.0
 
 [node name="Enemy2" parent="." instance=ExtResource("3_tlwt5")]
 position = Vector2(96, -254)
+aggro_range = 300.0
 
 [node name="Enemy3" parent="." instance=ExtResource("3_tlwt5")]
 position = Vector2(1144, -490)
+aggro_range = 300.755
 
 [node name="Enemy4" parent="." instance=ExtResource("3_tlwt5")]
 position = Vector2(594, -630)
+aggro_range = 300.0
 
 [node name="Enemy5" parent="." instance=ExtResource("3_tlwt5")]
 position = Vector2(936, 141)
+aggro_range = 300.0
 
 [node name="Enemy6" parent="." instance=ExtResource("3_tlwt5")]
 position = Vector2(677, 205)
+aggro_range = 300.0
 
 [node name="GameUI" parent="." instance=ExtResource("4_aqk2v")]
 
