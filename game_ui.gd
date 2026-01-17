@@ -171,6 +171,21 @@ func _on_mission_button_pressed():
 		mission_button.text = "Accepted"
 		mission_label.text = "Mission: Deliver to " + player.current_mission.target_name
 		print("Mission Accepted: ", player.current_mission)
+		
+		# Set Navigation Target
+		var target_name = player.current_mission.target_name
+		# Find the actual node in the scene tree (assuming ports are in the "ports" group)
+		var ports = get_tree().get_nodes_in_group("ports")
+		var target_node = null
+		for port in ports:
+			if port.port_name == target_name:
+				target_node = port
+				break
+		
+		if target_node:
+			player.set_navigation_target(target_node)
+		else:
+			print("Warning: Navigation target node not found for ", target_name)
 
 func _on_shipyard_button_pressed():
 	if shipyard_panel:
@@ -335,8 +350,8 @@ func on_port_entered(port_node):
 			print("Mission Completed! Reward: ", player.current_mission.reward)
 			player.has_mission = false
 			player.current_mission = {}
+			player.clear_navigation() # Clear compass
 			if mission_label:
-				mission_label.text = "Mission Complete! +$" + str(port_node.available_mission.get("reward", 0)) # Note: Logic slightly off, using available for display, but logic is fine
 				mission_label.text = "Mission Complete!"
 	
 	# Update Mission UI for new missions

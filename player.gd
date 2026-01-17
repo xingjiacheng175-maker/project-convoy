@@ -11,6 +11,10 @@ signal fuel_changed(new_fuel)
 @export var weight_penalty = 30.0
 @export var min_speed = 50.0
 
+@onready var compass_pivot = $CompassPivot
+@onready var distance_label = $CompassPivot/ArrowShape/DistanceLabel
+var navigation_target: Node2D = null
+
 var hp = 100
 var money = 100
 var inventory = {}
@@ -34,10 +38,11 @@ func _ready():
 	# Task 3: Camera Unlock/Expansion
 	var camera = $Camera2D
 	if camera:
-		camera.limit_left = -5000
-		camera.limit_top = -5000
-		camera.limit_right = 5000
-		camera.limit_bottom = 5000
+		# Unlock camera limits to allow exploration
+		camera.limit_left = -100000
+		camera.limit_top = -100000
+		camera.limit_right = 100000
+		camera.limit_bottom = 100000
 
 func take_damage(amount):
 	if is_dead:
@@ -173,7 +178,36 @@ func _physics_process(delta: float) -> void:
 	# Only rotate if we have significant velocity to avoid jitter
 	if velocity.length() > 0.1:
 		rotation = velocity.angle()
+		
+	# Update Compass Logic
+	if navigation_target != null:
+		# 1. Point the arrow
+		compass_pivot.look_at(navigation_target.global_position)
+		# Correct for parent rotation if compass is child of rotating player?
+		# Actually look_at sets global rotation. Since CompassPivot is child of Player
+		# and Player rotates, we might need to adjust or make CompassPivot not inherit rotation.
+		# However, Node2D.look_at sets global_rotation so it points to target regardless of parent.
+		# But wait, look_at modifies the node's rotation property relative to parent to achieve the global look direction.
+		# So calling look_at every frame is correct.
+		
+		# 2. Calculate and Show Distance
+		var dist = global_position.distance_to(navigation_target.global_position)
+		# Convert pixels to "km" (assuming 100px = 1km for flavor)
+		var km = int(dist / 100)
+		distance_label.text = str(km) + " km"
+		# Keep label upright? (Optional polish)
+		# Control nodes don't have global_rotation, so we calculate local rotation
+		distance_label.rotation = -distance_label.get_parent().global_rotation 
 
+
+func set_navigation_target(target_port_node):
+	navigation_target = target_port_node
+	compass_pivot.visible = true
+	print("Navigation set to: ", target_port_node.name)
+
+func clear_navigation():
+	navigation_target = null
+	compass_pivot.visible = false
 
 func _on_range_body_entered(body: Node2D) -> void:
 	pass # Replace with function body.

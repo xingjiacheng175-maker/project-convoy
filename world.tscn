@@ -20,36 +20,309 @@ script = ExtResource("7_worldborder")
 position = Vector2(617, -208)
 
 [node name="Enemy" parent="." instance=ExtResource("3_tlwt5")]
-position = Vector2(197, -300)
+position = Vector2(2079, 449)
 aggro_range = 300.0
 
 [node name="Enemy2" parent="." instance=ExtResource("3_tlwt5")]
-position = Vector2(96, -254)
+position = Vector2(1695, 760)
 aggro_range = 300.0
 
 [node name="Enemy3" parent="." instance=ExtResource("3_tlwt5")]
-position = Vector2(1144, -490)
-aggro_range = 300.755
+position = Vector2(3971, 4708)
+aggro_range = 300.0
 
 [node name="Enemy4" parent="." instance=ExtResource("3_tlwt5")]
-position = Vector2(594, -630)
+position = Vector2(4087, 4243)
 aggro_range = 300.0
 
 [node name="Enemy5" parent="." instance=ExtResource("3_tlwt5")]
-position = Vector2(936, 141)
+position = Vector2(4226, 3732)
 aggro_range = 300.0
 
 [node name="Enemy6" parent="." instance=ExtResource("3_tlwt5")]
-position = Vector2(677, 205)
+position = Vector2(4598, 3430)
 aggro_range = 300.0
 
 [node name="GameUI" parent="." instance=ExtResource("4_aqk2v")]
 
 [node name="Island" parent="." instance=ExtResource("4_036b0")]
-position = Vector2(2055, 257)
+position = Vector2(585, -561)
+
+[node name="Island" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-14, 834)
+
+[node name="Island4" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-14, 834)
+
+[node name="Island5" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(463, -11)
+
+[node name="Island2" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(856, -5)
+
+[node name="Island7" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1235, -11)
+
+[node name="Island9" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1511, 366)
+
+[node name="Island10" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1545, 696)
+
+[node name="Island8" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(733, 1144)
+
+[node name="Island6" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(764, 808)
+
+[node name="Island3" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(371, 806)
+
+[node name="Island11" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1911, 986)
+
+[node name="Island12" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1553, 1352)
+
+[node name="Island13" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(380, 1495)
+
+[node name="Island14" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1562, 1782)
+
+[node name="Island15" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(87, 1893)
+
+[node name="Island16" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1705, 2179)
+
+[node name="Island18" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1578, 2639)
+
+[node name="Island19" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1717, 3057)
+
+[node name="Island20" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1856, 3429)
+
+[node name="Island21" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1949, 3847)
+
+[node name="Island22" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1995, 4288)
+
+[node name="Island23" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(2088, 4753)
+
+[node name="Island24" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(2227, 5125)
+
+[node name="Island25" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1832, 5311)
+
+[node name="Island26" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(3899, 3290)
+
+[node name="Island27" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(3527, 3638)
+
+[node name="Island28" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(3225, 3963)
+
+[node name="Island29" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(3225, 3963)
+
+[node name="Island30" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(3062, 4311)
+
+[node name="Island31" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(2946, 4706)
+
+[node name="Island32" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(2830, 5078)
+
+[node name="Island33" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(2830, 5496)
+
+[node name="Island17" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-40, 2417)
+
+[node name="Island86" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-442, 2139)
+
+[node name="Island87" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-1122, 1459)
+
+[node name="Island88" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-1122, 1459)
+
+[node name="Island91" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-2482, 779)
+
+[node name="Island89" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-3379, 1583)
+
+[node name="Island90" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-3379, 1583)
+
+[node name="Island34" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(859, 3288)
+
+[node name="Island35" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(494, 3400)
+
+[node name="Island36" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(157, 3709)
+
+[node name="Island37" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(73, 4131)
+
+[node name="Island38" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(972, 3766)
+
+[node name="Island39" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(1084, 4131)
+
+[node name="Island40" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(943, 4524)
+
+[node name="Island41" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(521, 4777)
+
+[node name="Island42" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-4004, -2839)
+
+[node name="Island43" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-4004, -2839)
+
+[node name="Island44" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-4538, -1659)
+
+[node name="Island45" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-3020, -3570)
+
+[node name="Island46" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-2627, -2137)
+
+[node name="Island47" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-3386, -844)
+
+[node name="Island48" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-1447, -2895)
+
+[node name="Island49" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-1616, -1153)
+
+[node name="Island50" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-2178, -338)
+
+[node name="Island51" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-4595, 4159)
+
+[node name="Island54" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-4314, 3878)
+
+[node name="Island55" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-4061, 3625)
+
+[node name="Island56" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-3696, 3400)
+
+[node name="Island57" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-3359, 3175)
+
+[node name="Island58" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-2909, 2922)
+
+[node name="Island59" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-2459, 2669)
+
+[node name="Island82" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-2111, 2971)
+
+[node name="Island83" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-1763, 3250)
+
+[node name="Island84" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-1391, 3320)
+
+[node name="Island85" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-1391, 3320)
+
+[node name="Island60" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-4173, 4945)
+
+[node name="Island61" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-3780, 4776)
+
+[node name="Island62" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-3415, 4635)
+
+[node name="Island63" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-3050, 4523)
+
+[node name="Island64" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-2628, 4411)
+
+[node name="Island65" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-2235, 4299)
+
+[node name="Island66" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-1813, 4215)
+
+[node name="Island67" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-1532, 4215)
+
+[node name="Island68" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-2881, 5395)
+
+[node name="Island69" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-2600, 5367)
+
+[node name="Island70" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-2291, 5367)
+
+[node name="Island71" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-1841, 5395)
+
+[node name="Island72" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-1448, 5367)
+
+[node name="Island73" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-914, 5367)
+
+[node name="Island74" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-914, 5367)
+
+[node name="Island52" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-4792, 4356)
+
+[node name="Island53" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-4792, 4356)
+
+[node name="Island75" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-5270, 3878)
+
+[node name="Island76" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-5298, 3456)
+
+[node name="Island77" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-5326, 3034)
+
+[node name="Island78" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-5298, 2669)
+
+[node name="Island79" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-5354, 2247)
+
+[node name="Island80" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-5354, 1825)
+
+[node name="Island81" parent="Island" instance=ExtResource("4_036b0")]
+position = Vector2(-5354, 1825)
 
 [node name="Island2" parent="." instance=ExtResource("4_036b0")]
-position = Vector2(-58, 695)
+position = Vector2(186, -358)
 
 [node name="Port" parent="." instance=ExtResource("5_036b0")]
 position = Vector2(4678, -4599)
@@ -63,7 +336,8 @@ port_name = "Port Spice"
 buy_price = 100
 
 [node name="Port3" parent="." instance=ExtResource("5_036b0")]
-position = Vector2(779, -184)
+position = Vector2(1412, 1646)
+export_item_name = "Spice"
 port_name = "Port Home"
 buy_price = 100
 
@@ -76,6 +350,9 @@ buy_price = 100
 position = Vector2(4709, 4668)
 port_name = "Port Smuggler"
 buy_price = 100
+
+[node name="Island3" parent="." instance=ExtResource("4_036b0")]
+position = Vector2(184, 38)
 
 [connection signal="player_entered_port" from="Port" to="GameUI" method="on_port_entered"]
 [connection signal="player_exited_port" from="Port" to="GameUI" method="on_port_exited"]

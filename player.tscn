@@ -12,6 +12,10 @@ height = 90.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hs0m"]
 radius = 275.00183
 
+[sub_resource type="LabelSettings" id="LabelSettings_compass"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_onrkg")
 
@@ -27,6 +31,23 @@ shape = SubResource("CapsuleShape2D_hqtel")
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
+
+[node name="CompassPivot" type="Node2D" parent="."]
+visible = false
+z_index = 10
+
+[node name="ArrowShape" type="Polygon2D" parent="CompassPivot"]
+position = Vector2(100, 0)
+color = Color(1, 1, 0, 1)
+polygon = PackedVector2Array(-10, -10, 10, 0, -10, 10)
+
+[node name="DistanceLabel" type="Label" parent="CompassPivot/ArrowShape"]
+offset_left = 15.0
+offset_top = -10.0
+offset_right = 55.0
+offset_bottom = 13.0
+text = "0 km"
+label_settings = SubResource("LabelSettings_compass")
 
 [node name="Turret" type="Node2D" parent="."]
 position = Vector2(50, 1)
